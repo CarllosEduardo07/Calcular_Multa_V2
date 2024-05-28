@@ -2,16 +2,16 @@
   <form class="w-[530px] h-[400px] py-3 px-5">
     <div class="space-y-3">
       <div class="flex flex-col gap-y-1">
-        <label for="vtb_valor_multa_contratoNovo" class="">Valor do Benefício do Cliente:</label>
-        <input type="number" id="vtb_valor_multa_contratoNovo" class="input_number" placeholder="Valor do Benefício no Contrato" autocomplete="off" />
+        <label for="vtb_valor_multa">Valor do Benefício do Cliente:</label>
+        <input type="number" id="vtb_valor_multa" class="input_number" [(ngModel)]="vtb_valor_multa" name="vtb_valor_multa" placeholder="Valor do Benefício no Contrato" autocomplete="off" />
       </div>
       <div class="flex flex-col gap-y-1">
         <label for="mes_fidelidade">Número total dos meses de Fidelidade:</label>
-        <input type="number" id="mes_fidelidade" value="12" disabled class="cursor-not-allowed" />
+        <input type="number" id="mes_fidelidade" value="12" [(ngModel)]="mes_fidelidade" name="mes_fidelidade" disabled class="cursor-not-allowed" />
       </div>
       <div class="flex flex-col gap-y-1">
         <label for="mr_mes_restante">Selecione a quantidade de <strong>meses para encerrar</strong> a Fidelidade incluindo o mês na Assinatura do Contrato ou Alteração de Contrato:</label>
-        <select id="mr_mes_restante">
+        <select id="mr_mes_restante" [(ngModel)]="mes_restante" name="mes_restante">
           <option value="">Selecione o mês</option>
           <option value="1">1 mês</option>
           <option value="2">2 mês</option>
@@ -29,7 +29,7 @@
       </div>
       <div class="flex flex-col gap-y-1">
         <label for="diasRestante">Quantidade de <strong>dias</strong>:</label>
-        <select id="diasRestante" placeholder="Quantidade de dias">
+        <select id="diasRestante" [(ngModel)]="diasRestante" name="diasRestante">
           <option value="">Selecione o dia</option>
           <option value="0">0 Dias</option>
           <option value="1">1 Dias</option>
@@ -67,7 +67,7 @@
       </div>
     </div>
 
-    <button class="w-full py-2 mt-5 font-semibold flex justify-center items-center bg-slate-600 rounded-lg">Calcular</button>
+    <button class="w-full py-2 mt-5 font-semibold flex justify-center items-center bg-slate-600 rounded-lg" (click)="calcular()">Calcular</button>
   </form>
 
   <section class="w-[800px] h-[400px] flex flex-col border border-solid border-zinc-300/50 rounded-xl">
@@ -75,6 +75,7 @@
       <section class="flex flex-col mt-6">
         <span class="font-bold text-base">Fórmula do calculo de Mês:</span>
         <span>M = (VTB ÷ MF) × MR</span>
+        <div [innerHTML]="resultado_Calculo_Mes"></div>
       </section>
 
       <section class="flex flex-col mt-6">
