@@ -3,7 +3,15 @@
     <div class="space-y-3">
       <div class="flex flex-col gap-y-1">
         <label for="vtb_valor_multa">Valor do Benefício do Cliente:</label>
-        <input type="number" id="vtb_valor_multa" class="input_number" [(ngModel)]="vtb_valor_multa" name="vtb_valor_multa" placeholder="Valor do Benefício no Contrato" autocomplete="off" />
+        <input
+          type="number"
+          id="vtb_valor_multa"
+          class="input_number"
+          [(ngModel)]="input_Vtb_Valor_Multa"
+          name="input_Vtb_valor_Multa"
+          placeholder="Valor do Benefício no Contrato"
+          autocomplete="off"
+        />
       </div>
       <div class="flex flex-col gap-y-1">
         <label for="mes_fidelidade">Número total dos meses de Fidelidade:</label>
@@ -11,7 +19,7 @@
       </div>
       <div class="flex flex-col gap-y-1">
         <label for="mr_mes_restante">Selecione a quantidade de <strong>meses para encerrar</strong> a Fidelidade incluindo o mês na Assinatura do Contrato ou Alteração de Contrato:</label>
-        <select id="mr_mes_restante" [(ngModel)]="mes_restante" name="mes_restante">
+        <select id="mr_mes_restante" [(ngModel)]="input_Mes_restante" name="input_Mes_restante">
           <option value="">Selecione o mês</option>
           <option value="1">1 mês</option>
           <option value="2">2 mês</option>
@@ -29,7 +37,7 @@
       </div>
       <div class="flex flex-col gap-y-1">
         <label for="diasRestante">Quantidade de <strong>dias</strong>:</label>
-        <select id="diasRestante" [(ngModel)]="diasRestante" name="diasRestante">
+        <select id="diasRestante" [(ngModel)]="input_Dias_Restante" name="input_Dias_Restante">
           <option value="">Selecione o dia</option>
           <option value="0">0 Dias</option>
           <option value="1">1 Dias</option>
@@ -71,21 +79,25 @@
   </form>
 
   <section class="w-[800px] h-[400px] flex flex-col border border-solid border-zinc-300/50 rounded-xl">
-    <article class="w-full h-[250px] grid grid-cols-2 place-items-center items-start">
-      <section class="flex flex-col mt-6">
-        <span class="font-bold text-base">Fórmula do calculo de Mês:</span>
-        <span>M = (VTB ÷ MF) × MR</span>
-        <div [innerHTML]="resultado_Calculo_Mes"></div>
-      </section>
-
-      <section class="flex flex-col mt-6">
-        <span class="font-bold text-base">Fórmula do calculo de dias:</span>
-        <span>M = (DR ÷ 30) × (VTB ÷ MF)</span>
-      </section>
-    </article>
+    <div class="flex flex-col">
+      <article class="w-full h-[200px] grid grid-cols-2 place-items-center items-start">
+        <section class="flex flex-col mt-10">
+          <span class="font-bold text-base">Fórmula do calculo de mês:</span>
+          <span class="mb-2">M = (VTB ÷ MF) × MR</span>
+          <div [innerHTML]="resultado_Calculo_Mes" class="space-y-1"></div>
+        </section>
+        <section class="flex flex-col mt-10">
+          <span class="font-bold text-base">Fórmula do calculo de dias:</span>
+          <span class="mb-2">M = (DR ÷ 30) × (VTB ÷ MF)</span>
+          <div [innerHTML]="resultado_Calculo_Dias" class="space-y-1"></div>
+        </section>
+      </article>
+      <section [innerHTML]="resultado_Valor_Total_Multa" class="w-full h-[50px] flex flex-col justify-center items-center"></section>
+    </div>
 
     <div class="h-[150px] border-t border-zinc-300/50">
-      <span class="flex justify-center font-bold text-base">Histórico para os boletos:</span>
+      <span class="mt-5 flex justify-center font-bold text-lg">Histórico para os boletos:</span>
+      <div [innerHTML]="texto" class="text-center mt-5"></div>
     </div>
   </section>
 </main>
