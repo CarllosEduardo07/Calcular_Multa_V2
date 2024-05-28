@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  ::-webkit-scrollbar {
+    width: 8px; /* Largura da scrollbar */
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #888; /* Cor do thumb (barra deslizante) */
+    border-radius: 4px; /* Raio de borda do thumb */
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Cor do track (fundo da scrollbar) */
+    border-radius: 4px; /* Raio de borda do track */
+  }
+
+  /* tirar setar do input number */
+  .input_number::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input,
+  select {
+    @apply p-2 border border-solid border-gray-400 outline-none rounded-lg text-center  bg-slate-800 text-white lg:text-sm cursor-pointer hover:shadow-lg focus:border-green-400;
+  }
+}
