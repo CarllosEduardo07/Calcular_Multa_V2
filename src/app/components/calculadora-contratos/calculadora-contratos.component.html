@@ -18,7 +18,7 @@
         <input type="number" id="mes_fidelidade" value="12" [(ngModel)]="mes_fidelidade" name="mes_fidelidade" disabled class="cursor-not-allowed" />
       </div>
       <div class="flex flex-col gap-y-1">
-        <label for="mr_mes_restante">Selecione a quantidade de <strong>meses para encerrar</strong> a Fidelidade incluindo o mês na Assinatura do Contrato ou Alteração de Contrato:</label>
+        <label for="mr_mes_restante">Selecione a quantidade de <strong>meses restantes</strong> para encerrar a Fidelidade:</label>
         <select id="mr_mes_restante" [(ngModel)]="input_Mes_restante" name="input_Mes_restante">
           <option value="">Selecione o mês</option>
           <option value="1">1 mês</option>
@@ -36,7 +36,7 @@
         </select>
       </div>
       <div class="flex flex-col gap-y-1">
-        <label for="diasRestante">Quantidade de <strong>dias</strong>:</label>
+        <label for="diasRestante">Selecione a quantidade de <strong>dias</strong>:</label>
         <select id="diasRestante" [(ngModel)]="input_Dias_Restante" name="input_Dias_Restante">
           <option value="">Selecione o dia</option>
           <option value="0">0 Dias</option>
