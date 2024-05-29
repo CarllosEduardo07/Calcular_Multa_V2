@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, UntypedFormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'calculadora-contratos',
@@ -23,7 +23,18 @@ export class CalculadoraContratosComponent {
     return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2, maximumFractionDigits: 2 })
   }
 
+  validacao(){
+    if (this.input_Vtb_Valor_Multa === undefined) {
+      throw alert('Digite o valor do beneficio do cliente');
+    } else if (this.input_Mes_restante === '') {
+      throw alert('Selecione a quantidade de meses para encerrar o Contrato');
+    }else if (this.input_Dias_Restante === '') {
+      throw alert('Selecione algum dia');
+    }
+  }
+
   calcular() {
+    this.validacao()
     // calculo de mes
     const vtb_valor_multa = this.input_Vtb_Valor_Multa;
     const mr_mes_restante = parseInt(this.input_Mes_restante);
