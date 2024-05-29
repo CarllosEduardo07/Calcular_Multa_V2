@@ -1,5 +1,5 @@
-<main class="w-full h-full flex items-center">
-  <form class="w-[530px] h-[400px] py-3 px-5">
+<main class="w-full h-full flex flex-col justify-center items-center gap-y-12 lg:flex lg:flex-row">
+  <form class="w-full sm:w-[600px] lg:w-[530px] h-[400px] py-3 px-5">
     <div class="space-y-3">
       <div class="flex flex-col gap-y-1">
         <label for="vtb_valor_multa">Valor do Benefício do Cliente:</label>
@@ -78,15 +78,15 @@
     <button class="w-full py-2 mt-5 font-semibold flex justify-center items-center bg-slate-600 rounded-lg" (click)="calcular()">Calcular</button>
   </form>
 
-  <section class="w-[800px] h-[400px] flex flex-col border border-solid border-zinc-300/50 rounded-xl">
+  <section class="w-full sm:w-[600px] h-[520px] lg:w-[700px] lg:h-[400px] lg:flex lg:flex-col border border-solid border-zinc-300/50 rounded-xl">
     <div class="flex flex-col">
-      <article class="w-full h-[200px] grid grid-cols-2 place-items-center items-start">
-        <section class="flex flex-col mt-10">
+      <article class="w-full lg:h-[200px] grid grid-rows-2 place-items-center items-start lg:grid lg:grid-cols-2 lg:place-items-center lg:items-start">
+        <section class="flex flex-col mt-5 h-[150px] lg:h-auto lg:mt-10">
           <span class="font-bold text-base">Fórmula do calculo de mês:</span>
           <span class="mb-2">M = (VTB ÷ MF) × MR</span>
           <div [innerHTML]="resultado_Calculo_Mes" class="space-y-1"></div>
         </section>
-        <section class="flex flex-col mt-10">
+        <section class="flex flex-col mt-5 h-[150px] lg:h-auto lg:mt-10">
           <span class="font-bold text-base">Fórmula do calculo de dias:</span>
           <span class="mb-2">M = (DR ÷ 30) × (VTB ÷ MF)</span>
           <div [innerHTML]="resultado_Calculo_Dias" class="space-y-1"></div>
