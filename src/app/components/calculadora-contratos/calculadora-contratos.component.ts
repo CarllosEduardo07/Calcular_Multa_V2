@@ -19,17 +19,20 @@ export class CalculadoraContratosComponent {
   resultado_Valor_Total_Multa: string = '';
   texto: string = '';
 
+  formatarValor(valor:number){
+    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  }
+
   calcular() {
     // calculo de mes
     const vtb_valor_multa = this.input_Vtb_Valor_Multa;
-    console.log(typeof vtb_valor_multa);
     const mr_mes_restante = parseInt(this.input_Mes_restante);
     const valor_multa_Mes = (vtb_valor_multa / this.mes_fidelidade) * mr_mes_restante;
 
     this.resultado_Calculo_Mes = `
       <span class="my-10 font-bold">Resultado da Fórmula:</span>
       <p> M = (${vtb_valor_multa} &#247; ${this.mes_fidelidade}) &#215; ${mr_mes_restante}</p>
-      <p> M = R$ ${valor_multa_Mes.toFixed(2)}</p>`;
+      <p> M = ${this.formatarValor(valor_multa_Mes)}</p>`;
 
     //calculo de dias
     const dias_restantes = parseInt(this.input_Dias_Restante);
@@ -39,14 +42,14 @@ export class CalculadoraContratosComponent {
     <span class="my-10 font-bold">Resultado da Fórmula:</span>
     <p> M = (${dias_restantes} &#247; ${this.valorDiasDoMes}) &#215; (${vtb_valor_multa} &#247; ${this.mes_fidelidade})</p>
     <p> M = (${(dias_restantes / this.valorDiasDoMes).toFixed(5)}) &#215; (${(vtb_valor_multa / this.mes_fidelidade).toFixed(2)})</p>
-    <p> M = R$ ${valor_multa_dias.toFixed(2)}</p>`;
+    <p> M = ${this.formatarValor(valor_multa_dias)}</p>`;
 
-    this.resultado_Valor_Total_Multa = `<span class="font-semibold">Valor total da multa = R$ ${(valor_multa_Mes + valor_multa_dias).toFixed(2)}</span>`;
+    this.resultado_Valor_Total_Multa = `<span class="font-semibold">Valor total da multa = ${this.formatarValor(valor_multa_Mes + valor_multa_dias)}</span>`;
 
     if (dias_restantes != 0) {
-      this.texto = `Gerar multa no valor de <strong>R$ ${(valor_multa_Mes + valor_multa_dias).toFixed(2)}</strong>, falta <strong>${mr_mes_restante} meses</strong> e <strong>${dias_restantes} dias</strong> para encerrar a fidelidade.`;
+      this.texto = `Gerar multa no valor de <strong>${this.formatarValor(valor_multa_Mes + valor_multa_dias)}</strong>, falta <strong>${mr_mes_restante} meses</strong> e <strong>${dias_restantes} dias</strong> para encerrar a fidelidade.`;
     } else {
-      this.texto = `Gerar multa no valor de <strong>R$ ${(valor_multa_Mes + valor_multa_dias).toFixed(2)}</strong>, falta <strong>${mr_mes_restante} meses</strong> para encerrar a fidelidade.`;
+      this.texto = `Gerar multa no valor de <strong>${this.formatarValor(valor_multa_Mes + valor_multa_dias)}</strong>, falta <strong>${mr_mes_restante} meses</strong> para encerrar a fidelidade.`;
     }
   }
 }
