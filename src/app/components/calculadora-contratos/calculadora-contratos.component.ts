@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule, UntypedFormBuilder } from '@angular/forms';
+import { DiferencaEntreDatasComponent } from '../diferenca-entre-datas/diferenca-entre-datas.component';
 
 @Component({
   selector: 'calculadora-contratos',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, DiferencaEntreDatasComponent],
   templateUrl: './calculadora-contratos.component.html',
   styleUrl: './calculadora-contratos.component.css',
 })
