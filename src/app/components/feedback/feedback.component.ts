@@ -1,14 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { Component, ElementRef, QueryList, Renderer2, ViewChildren, signal } from '@angular/core';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'feedback',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DialogComponent],
   templateUrl: './feedback.component.html',
   styleUrl: './feedback.component.css',
 })
 export class FeedbackComponent {
+
+  isModalOpen = signal(false)
+
   @ViewChildren('starIcon') starIcons!: QueryList<ElementRef>;
   private globalClickListener: (() => void) | undefined;
 
@@ -39,5 +43,14 @@ export class FeedbackComponent {
     this.starIcons.forEach(star => {
       this.renderer.removeClass(star.nativeElement, 'ativo');
     });
+  }
+
+
+  modalOpen(){
+    this.isModalOpen.set(true)
+    console.log(this.isModalOpen)
+  }
+  toggleModal(){
+    this.isModalOpen.set(false)
   }
 }
