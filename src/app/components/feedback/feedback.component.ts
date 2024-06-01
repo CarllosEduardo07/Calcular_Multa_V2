@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, ElementRef, QueryList, Renderer2, ViewChildren, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EnviarFeedbackService } from '../../services/enviar-feedback.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { FeedbackForm } from './../../interface/feedbackform';
@@ -19,6 +19,7 @@ export class FeedbackComponent {
   btnConfirma = signal(false);
   valueStar = signal(false);
   closeAvaliacao = signal(false);
+  loading = signal(false);
 
   @ViewChildren('starIcon') starIcons!: QueryList<ElementRef>;
   private globalClickListener: (() => void) | undefined;
@@ -28,17 +29,19 @@ export class FeedbackComponent {
 
   constructor(private renderer: Renderer2, private enviarFeedbackService: EnviarFeedbackService) {
     this.feedbackForm = new FormGroup({
-      name: new FormControl(''),
-      email: new FormControl(''),
-      comment: new FormControl(''),
-      star: new FormControl(''),
+      name: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      comment: new FormControl('', [Validators.required]),
+      star: new FormControl('', [Validators.required]),
     });
   }
 
   criarFeedback() {
+    this.loading.set(true)
     if (this.feedbackForm.valid) {
       this.enviarFeedbackService.enviarFeedback(this.feedbackForm.value).subscribe(_ => {
         this.feedbackForm.reset();
+        this.loading.set(false)
         this.isModalOpen.set(false);
         this.btnCloseStar()
       });

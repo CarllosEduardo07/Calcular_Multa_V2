@@ -47,7 +47,6 @@
               id="name"
               type="text"
               class="pt-3 px-4 pb-4 rounded-md border border-transparent bg-gray-900 text-gray-100 text-base transition-colors focus:outline-none focus:border-blue-500 text-left"
-              autocomplete="off"
               formControlName="name"
             />
           </div>
@@ -57,7 +56,6 @@
               id="email"
               type="email"
               class="pt-3 px-4 pb-4 rounded-md border border-transparent bg-gray-900 text-gray-100 text-base transition-colors focus:outline-none focus:border-blue-500 text-left"
-              autocomplete="off"
               formControlName="email"
             />
           </div>
@@ -76,8 +74,19 @@
           </div>
 
           <div class="mt-5 sm:mt-6">
-            <button type="submit" class="inline-flex w-full justify-center rounded-md bg-indigo-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline">
+            <button
+              type="submit"
+              [disabled]="!feedbackForm.valid"
+              class="inline-flex w-full justify-center rounded-md bg-indigo-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+            @if (loading()) {
+              <div class="flex items-center">
+                <p class="pr-1">Carregando</p>
+                <img src="/assets/loading.svg" alt="">
+              </div>
+            }@else{
               Enviar
+            }
             </button>
           </div>
         </form>
