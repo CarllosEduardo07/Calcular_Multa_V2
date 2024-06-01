@@ -1,7 +1,11 @@
-<div class="flex flex-col items-center min-w-[280px] max-w-[280px] rounded border border-gray-800 bg-gray-900">
-  <div class="w-full flex justify-center items-center px-6 py-3 bg-gray-700">
-    <p class="text-sm text-gray-200">Deixe uma Avaliação</p>
+<div class="flex flex-col items-center min-w-[180px] border border-gray-800 bg-gray-900 rounded-t-lg rounded-b-lg">
+  <div class="px-3 bg-gray-700 flex justify-center items-center rounded-t-lg">
+    <button (click)="btnOpenStarConfirm()" class="w-full px-3 py-3 gap-x-3 text-sm text-gray-200">Deixe uma Avaliação</button>
+    @if (closeAvaliacao()) {
+    <button (click)="btnCloseStar()" class="px-1.5 py-0 text-center text-lg font-bold text-red-600 hover:bg-red-400 rounded-full">x</button>
+    }
   </div>
+  @if (valueStar()) {
   <div class="flex flex-col items-center px-6 py-5 gap-6">
     <ul class="flex">
       <li class="star-icon ativo" value="1" #starIcon></li>
@@ -11,70 +15,74 @@
       <li class="star-icon" value="5" #starIcon></li>
     </ul>
   </div>
+  } @if (btnConfirma()) {
   <button
-    class="flex items-center justify-center transition-colors ease-in-out duration-200 font-bold border-none cursor-pointer hover:bg-gray-600 text-gray-100 px-8 py-3 text-2xl w-full bg-gray-700"
+    class="flex items-center justify-center transition-colors ease-in-out duration-200 font-bold border-none cursor-pointer hover:bg-gray-600 text-gray-100 px-8 py-2 text-2xl w-full bg-gray-700 rounded-b-lg"
     (click)="modalOpen()"
   >
     <div class="flex flex-1 justify-center items-center gap-2">
       <span class="text-base leading-6">Confirmar</span>
     </div>
   </button>
+  }
+</div>
+<!-- dialog -->
+@if (isModalOpen()) {
+<div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
-  <!-- dialog -->
-  @if (isModalOpen()) {
-  <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-
-    <div class="fixed inset-0 z-10 w-screen overflow-y-auto text-white">
-      <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-        <div class="relative transform overflow-hidden rounded-lg bg-gray-800 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-          <div class="flex justify-end">
-            <button (click)="toggleModal()" class="px-2.5 py-1 text-lg font-bold text-red-600 hover:bg-red-400 rounded-full">X</button>
-          </div>
-          <div class="text-center sm:mt-3">
-            <h3 class="text-base font-semibold leading-6" id="modal-title">Deixe um Feedback</h3>
-          </div>
-          <form>
-            <div class="sm:mt-3 space-y-1 flex flex-col">
-              <label for="name"> Nome: </label>
-              <input
-                id="name"
-                type="text"
-                class="pt-3 px-4 pb-4 rounded-md border border-transparent bg-gray-900 text-gray-100 text-base transition-colors focus:outline-none focus:border-blue-500 text-left"
-                autocomplete="off"
-              />
-            </div>
-            <div class="sm:mt-3 space-y-1 flex flex-col">
-              <label for="email"> Email: </label>
-              <input
-                id="email"
-                type="email"
-                class="pt-3 px-4 pb-4 rounded-md border border-transparent bg-gray-900 text-gray-100 text-base transition-colors focus:outline-none focus:border-blue-500 text-left"
-                autocomplete="off"
-              />
-            </div>
-
-            <div class="sm:mt-3 space-y-1">
-              <label for="guest" class=""> Deixe um comentario: </label>
-              <div class="flex flex-col items-center justify-center">
-                <textarea
-                  class="pt-3 px-4 pb-4 h-[112px] rounded-md border border-transparent bg-gray-900 text-gray-100 text-base transition-colors resize-none focus:outline-none focus:border-blue-500"
-                  cols="52"
-                  rows="5"
-                  autocomplete="off"
-                ></textarea>
-              </div>
-            </div>
-
-            <div class="mt-5 sm:mt-6">
-              <button type="button" class="inline-flex w-full justify-center rounded-md bg-indigo-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline">
-                Enviar
-              </button>
-            </div>
-          </form>
+  <div class="fixed inset-0 z-10 w-screen overflow-y-auto text-white">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <div class="relative transform overflow-hidden rounded-lg bg-gray-800 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+        <div class="absolute right-5 top-7 flex justify-end">
+          <button (click)="modalClose()" class="px-2.5 py-1 text-lg font-bold text-red-600 hover:bg-red-400 rounded-full">X</button>
         </div>
+        <div class="text-center sm:mt-3">
+          <h3 class="text-base font-semibold leading-6" id="modal-title">Deixe um Feedback</h3>
+        </div>
+        <form [formGroup]="feedbackForm" (submit)="criarFeedback()">
+          <div class="sm:mt-3 space-y-1 flex flex-col">
+            <label for="name"> Nome: </label>
+            <input
+              id="name"
+              type="text"
+              class="pt-3 px-4 pb-4 rounded-md border border-transparent bg-gray-900 text-gray-100 text-base transition-colors focus:outline-none focus:border-blue-500 text-left"
+              autocomplete="off"
+              formControlName="name"
+            />
+          </div>
+          <div class="sm:mt-3 space-y-1 flex flex-col">
+            <label for="email"> Email: </label>
+            <input
+              id="email"
+              type="email"
+              class="pt-3 px-4 pb-4 rounded-md border border-transparent bg-gray-900 text-gray-100 text-base transition-colors focus:outline-none focus:border-blue-500 text-left"
+              autocomplete="off"
+              formControlName="email"
+            />
+          </div>
+
+          <div class="sm:mt-3 space-y-1">
+            <label for="guest" class=""> Deixe um comentario: </label>
+            <div class="flex flex-col items-center justify-center">
+              <textarea
+                class="pt-3 px-4 pb-4 h-[112px] rounded-md border border-transparent bg-gray-900 text-gray-100 text-base transition-colors resize-none focus:outline-none focus:border-blue-500"
+                cols="52"
+                rows="5"
+                autocomplete="off"
+                formControlName="comment"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="mt-5 sm:mt-6">
+            <button type="submit" class="inline-flex w-full justify-center rounded-md bg-indigo-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline">
+              Enviar
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  }
 </div>
+}
