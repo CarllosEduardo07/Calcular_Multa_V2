@@ -20,6 +20,7 @@ export class FeedbackComponent {
   valueStar = signal(false);
   closeAvaliacao = signal(false);
   loading = signal(false);
+  disableBtnEnviar = false
 
   @ViewChildren('starIcon') starIcons!: QueryList<ElementRef>;
   private globalClickListener: (() => void) | undefined;
@@ -36,13 +37,14 @@ export class FeedbackComponent {
   }
 
   criarFeedback() {
-    this.loading.set(true)
-    if (this.feedbackForm.valid) {
+    if (this.feedbackForm.valid &&  !this.disableBtnEnviar) {
+      this.loading.set(true);
+      this.disableBtnEnviar = true//desabilitar o button enviar, quando voce clica
       this.enviarFeedbackService.enviarFeedback(this.feedbackForm.value).subscribe(_ => {
         this.feedbackForm.reset();
-        this.loading.set(false)
+        this.loading.set(false);
         this.isModalOpen.set(false);
-        this.btnCloseStar()
+        this.btnCloseStar();
       });
     }
   }
@@ -88,7 +90,7 @@ export class FeedbackComponent {
   }
   modalClose() {
     this.isModalOpen.set(false);
-    this.btnCloseStar()
+    this.btnCloseStar();
   }
   //
   btnOpenStarConfirm() {
@@ -96,7 +98,7 @@ export class FeedbackComponent {
     this.valueStar.set(true);
     this.closeAvaliacao.set(true);
   }
-  btnCloseStar(){
+  btnCloseStar() {
     this.btnConfirma.set(false);
     this.valueStar.set(false);
     this.closeAvaliacao.set(false);
