@@ -25,7 +25,6 @@ export class FeedbackComponent {
   private globalClickListener: (() => void) | undefined;
 
   feedbackForm: FormGroup<FeedbackForm>;
-  feedback: Array<FeedbackForm> = [];
 
   constructor(private renderer: Renderer2, private enviarFeedbackService: EnviarFeedbackService) {
     this.feedbackForm = new FormGroup({

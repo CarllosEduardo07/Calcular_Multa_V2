@@ -47,8 +47,12 @@
               id="name"
               type="text"
               class="pt-3 px-4 pb-4 rounded-md border border-transparent bg-gray-900 text-gray-100 text-base transition-colors focus:outline-none focus:border-blue-500 text-left"
+              placeholder="Digite seu Nome"
               formControlName="name"
             />
+            @if (feedbackForm.controls.name.invalid && feedbackForm.controls.name.dirty) {
+              <p class="ml-2 text-red-500 font-semibold">Campo obrigatório</p>
+            }
           </div>
           <div class="sm:mt-3 space-y-1 flex flex-col">
             <label for="email"> Email: </label>
@@ -56,8 +60,12 @@
               id="email"
               type="email"
               class="pt-3 px-4 pb-4 rounded-md border border-transparent bg-gray-900 text-gray-100 text-base transition-colors focus:outline-none focus:border-blue-500 text-left"
+              placeholder="exemplo@email.com"
               formControlName="email"
             />
+            @if (feedbackForm.controls.email.invalid && feedbackForm.controls.email.dirty) {
+              <p class="ml-2 text-red-500 font-semibold">Campo obrigatório</p>
+            }
           </div>
 
           <div class="sm:mt-3 space-y-1">
@@ -68,8 +76,12 @@
                 cols="52"
                 rows="5"
                 autocomplete="off"
+                placeholder="Deixe um comentario sobre essa calculadora de multa"
                 formControlName="comment"
               ></textarea>
+              @if (feedbackForm.controls.comment.invalid && feedbackForm.controls.comment.dirty) {
+                <p class="text-red-500 font-semibold">Campo obrigatório</p>
+              }
             </div>
           </div>
 
