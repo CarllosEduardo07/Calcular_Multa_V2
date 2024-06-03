@@ -17,7 +17,7 @@ import { FeedbackForm } from './../../interface/feedbackform';
 export class FeedbackComponent {
   isModalOpen = signal(false);
   btnConfirma = signal(false);
-  valueStar = signal(false);
+  valueStar = signal(true);
   closeAvaliacao = signal(false);
   loading = signal(false);
   disableBtnEnviar = false
