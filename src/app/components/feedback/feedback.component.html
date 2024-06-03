@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center min-w-[180px] border border-gray-800 bg-gray-900 rounded-t-lg rounded-b-lg">
+<div class="flex flex-col items-center min-w-[180px] border border-gray-800 bg-gray-900 rounded-t-lg rounded-b-lg relative">
   <div class="px-6 bg-gray-700 hover:bg-gray-600 flex justify-center items-center rounded-t-lg">
     <button (click)="btnOpenStarConfirm()" class="w-full px-3 py-3 gap-x-3 text-sm text-gray-200">Deixe uma Avaliação</button>
     <!-- @if (closeAvaliacao()) {
@@ -25,6 +25,21 @@
     </div>
   </button>
   }
+
+<!-- notification -->
+@if (modalMensagemEnviada()) {
+
+  <div
+  class="bottom-16 right-0 absolute flex items-center w-[350px] p-4 space-x-4 text-gray-600 bg-white divide-x rtl:divide-x-reverse rounded-lg shadow space-x"
+  role="alert"
+  >
+  <svg class="w-5 h-5 text-green-600 rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 17 8 2L9 1 1 19l8-2Zm0 0V9" />
+  </svg>
+  <div class="ps-4 text-sm font-normal">Obrigado pelo Feedback.</div>
+</div>
+}
+
 </div>
 <!-- dialog -->
 @if (isModalOpen()) {
@@ -51,7 +66,7 @@
               formControlName="name"
             />
             @if (feedbackForm.controls.name.invalid && feedbackForm.controls.name.dirty) {
-              <p class="ml-2 text-red-500 font-semibold">Campo obrigatório</p>
+            <p class="ml-2 text-red-500 font-semibold">Campo obrigatório</p>
             }
           </div>
           <div class="sm:mt-3 space-y-1 flex flex-col">
@@ -64,7 +79,7 @@
               formControlName="email"
             />
             @if (feedbackForm.controls.email.invalid && feedbackForm.controls.email.dirty) {
-              <p class="ml-2 text-red-500 font-semibold">Campo obrigatório</p>
+            <p class="ml-2 text-red-500 font-semibold">Campo obrigatório</p>
             }
           </div>
 
@@ -80,7 +95,7 @@
                 formControlName="comment"
               ></textarea>
               @if (feedbackForm.controls.comment.invalid && feedbackForm.controls.comment.dirty) {
-                <p class="text-red-500 font-semibold">Campo obrigatório</p>
+              <p class="text-red-500 font-semibold">Campo obrigatório</p>
               }
             </div>
           </div>
@@ -91,14 +106,12 @@
               [disabled]="!feedbackForm.valid || disableBtnEnviar"
               class="inline-flex w-full justify-center rounded-md bg-indigo-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
             >
-            @if (loading()) {
+              @if (loading()) {
               <div class="flex items-center">
                 <p class="pr-1">Carregando</p>
-                <img src="/assets/loading.svg" alt="">
+                <img src="/assets/loading.svg" alt="" />
               </div>
-            }@else{
-              Enviar
-            }
+              }@else{ Enviar }
             </button>
           </div>
         </form>
@@ -107,3 +120,5 @@
   </div>
 </div>
 }
+
+

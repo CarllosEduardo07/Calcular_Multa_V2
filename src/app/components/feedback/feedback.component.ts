@@ -20,6 +20,7 @@ export class FeedbackComponent {
   valueStar = signal(true);
   closeAvaliacao = signal(false);
   loading = signal(false);
+  modalMensagemEnviada = signal(false);
   disableBtnEnviar = false
 
   @ViewChildren('starIcon') starIcons!: QueryList<ElementRef>;
@@ -45,7 +46,14 @@ export class FeedbackComponent {
         this.loading.set(false);
         this.isModalOpen.set(false);
         this.btnCloseStar();
+
+
+        this.modalMensagemEnviada.set(true);
+        setTimeout(() => {
+          this.modalMensagemEnviada.set(false);
+        }, 3000);
       });
+      
     }
   }
 
