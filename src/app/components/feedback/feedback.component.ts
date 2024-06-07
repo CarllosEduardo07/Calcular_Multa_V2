@@ -3,13 +3,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component, ElementRef, QueryList, Renderer2, ViewChildren, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EnviarFeedbackService } from '../../services/enviar-feedback.service';
-import { DialogComponent } from '../dialog/dialog.component';
 import { FeedbackForm } from './../../interface/feedbackform';
 
 @Component({
   selector: 'feedback',
   standalone: true,
-  imports: [CommonModule, DialogComponent, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   providers: [EnviarFeedbackService],
   templateUrl: './feedback.component.html',
   styleUrl: './feedback.component.css',
