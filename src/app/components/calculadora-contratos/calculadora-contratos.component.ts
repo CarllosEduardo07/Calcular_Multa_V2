@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FeedbackComponent } from '../feedback/feedback.component';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'calculadora-contratos',
   standalone: true,
-  imports: [FormsModule, FeedbackComponent],
+  imports: [FormsModule, FeedbackComponent, FooterComponent],
   templateUrl: './calculadora-contratos.component.html',
   styleUrl: './calculadora-contratos.component.css',
 })

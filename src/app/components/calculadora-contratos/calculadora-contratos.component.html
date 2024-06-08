@@ -1,107 +1,109 @@
-<main class="relative w-full h-full mt-80 pb-[400px] md:mt-0 md:pb-0 flex flex-col justify-center items-center gap-y-12 lg:flex lg:flex-row">
-  <form class="w-full sm:w-[600px] lg:w-[530px] h-[400px] py-3 px-5">
-    <div class="space-y-3">
-      <div class="flex flex-col gap-y-1">
-        <label for="vtb_valor_multa">Valor do Benefício do Cliente:</label>
-        <input
-          type="number"
-          id="vtb_valor_multa"
-          class="input_number"
-          [(ngModel)]="input_Vtb_Valor_Multa"
-          name="input_Vtb_valor_Multa"
-          placeholder="Valor do Benefício no Contrato"
-          autocomplete="off"
-        />
+<main class="relative w-full h-full top-96 md:top-10 lg:top-0">
+  <div class="pb-[460px] md:pb-[120px] gap-y-12 lg:flex lg:flex-row flex flex-col justify-center items-center w-full h-full">
+    <form class="w-full sm:w-[600px] lg:w-[530px] h-[400px] py-3 px-5">
+      <div class="space-y-3">
+        <div class="flex flex-col gap-y-1">
+          <label for="vtb_valor_multa">Valor do Benefício do Cliente:</label>
+          <input
+            type="number"
+            id="vtb_valor_multa"
+            class="input_number"
+            [(ngModel)]="input_Vtb_Valor_Multa"
+            name="input_Vtb_valor_Multa"
+            placeholder="Valor do Benefício no Contrato"
+            autocomplete="off"
+          />
+        </div>
+        <div class="flex flex-col gap-y-1">
+          <label for="mes_fidelidade">Número total dos meses de Fidelidade:</label>
+          <input type="number" id="mes_fidelidade" value="12" [(ngModel)]="mes_fidelidade" name="mes_fidelidade" disabled class="cursor-not-allowed" />
+        </div>
+        <div class="flex flex-col gap-y-1">
+          <label for="mr_mes_restante">Selecione a quantidade de <strong>meses restantes</strong> para encerrar a Fidelidade:</label>
+          <select id="mr_mes_restante" [(ngModel)]="input_Mes_restante" name="input_Mes_restante">
+            <option value="">Selecione o mês</option>
+            <option value="0">0 mês</option>
+            <option value="1">1 mês</option>
+            <option value="2">2 mês</option>
+            <option value="3">3 mês</option>
+            <option value="4">4 mês</option>
+            <option value="5">5 mês</option>
+            <option value="6">6 mês</option>
+            <option value="7">7 mês</option>
+            <option value="8">8 mês</option>
+            <option value="9">9 mês</option>
+            <option value="10">10 mês</option>
+            <option value="11">11 mês</option>
+            <option value="12">12 mês</option>
+          </select>
+        </div>
+        <div class="flex flex-col gap-y-1">
+          <label for="diasRestante">Selecione a quantidade de <strong>dias</strong>:</label>
+          <select id="diasRestante" [(ngModel)]="input_Dias_Restante" name="input_Dias_Restante">
+            <option value="">Selecione o dia</option>
+            <option value="0">0 Dias</option>
+            <option value="1">1 Dias</option>
+            <option value="2">2 Dias</option>
+            <option value="3">3 Dias</option>
+            <option value="4">4 Dias</option>
+            <option value="5">5 Dias</option>
+            <option value="6">6 Dias</option>
+            <option value="7">7 Dias</option>
+            <option value="8">8 Dias</option>
+            <option value="9">9 Dias</option>
+            <option value="10">10 Dias</option>
+            <option value="11">11 Dias</option>
+            <option value="12">12 Dias</option>
+            <option value="13">13 Dias</option>
+            <option value="14">14 Dias</option>
+            <option value="15">15 Dias</option>
+            <option value="16">16 Dias</option>
+            <option value="17">17 Dias</option>
+            <option value="18">18 Dias</option>
+            <option value="19">19 Dias</option>
+            <option value="20">20 Dias</option>
+            <option value="21">21 Dias</option>
+            <option value="22">22 Dias</option>
+            <option value="23">23 Dias</option>
+            <option value="24">24 Dias</option>
+            <option value="25">25 Dias</option>
+            <option value="26">26 Dias</option>
+            <option value="27">27 Dias</option>
+            <option value="28">28 Dias</option>
+            <option value="29">29 Dias</option>
+            <option value="30">30 Dias</option>
+            <option value="31">31 Dias</option>
+          </select>
+        </div>
       </div>
-      <div class="flex flex-col gap-y-1">
-        <label for="mes_fidelidade">Número total dos meses de Fidelidade:</label>
-        <input type="number" id="mes_fidelidade" value="12" [(ngModel)]="mes_fidelidade" name="mes_fidelidade" disabled class="cursor-not-allowed" />
+      <button class="w-full py-2 mt-5 font-semibold flex justify-center items-center bg-slate-600 rounded-lg" (click)="calcular()">Calcular</button>
+    </form>
+    <section class="w-full sm:w-[600px] h-[520px] lg:w-[700px] lg:h-[400px] lg:flex lg:flex-col border border-solid border-zinc-300/50 rounded-xl">
+      <div class="flex flex-col">
+        <article class="w-full lg:h-[200px] grid grid-rows-2 place-items-center items-start lg:grid lg:grid-cols-2 lg:place-items-center lg:items-start">
+          <section class="flex flex-col mt-5 h-[150px] lg:h-auto lg:mt-10">
+            <span class="font-bold text-base">Fórmula do calculo de mês:</span>
+            <span class="mb-2">M = (VTB ÷ MF) × MR</span>
+            <div [innerHTML]="resultado_Calculo_Mes" class="space-y-1"></div>
+          </section>
+          <section class="flex flex-col mt-5 h-[150px] lg:h-auto lg:mt-10">
+            <span class="font-bold text-base">Fórmula do calculo de dias:</span>
+            <span class="mb-2">M = (DR ÷ 30) × (VTB ÷ MF)</span>
+            <div [innerHTML]="resultado_Calculo_Dias" class="space-y-1"></div>
+          </section>
+        </article>
+        <section [innerHTML]="resultado_Valor_Total_Multa" class="w-full h-[50px] flex flex-col justify-center items-center"></section>
       </div>
-      <div class="flex flex-col gap-y-1">
-        <label for="mr_mes_restante">Selecione a quantidade de <strong>meses restantes</strong> para encerrar a Fidelidade:</label>
-        <select id="mr_mes_restante" [(ngModel)]="input_Mes_restante" name="input_Mes_restante">
-          <option value="">Selecione o mês</option>
-          <option value="0">0 mês</option>
-          <option value="1">1 mês</option>
-          <option value="2">2 mês</option>
-          <option value="3">3 mês</option>
-          <option value="4">4 mês</option>
-          <option value="5">5 mês</option>
-          <option value="6">6 mês</option>
-          <option value="7">7 mês</option>
-          <option value="8">8 mês</option>
-          <option value="9">9 mês</option>
-          <option value="10">10 mês</option>
-          <option value="11">11 mês</option>
-          <option value="12">12 mês</option>
-        </select>
+      <div class="h-[150px] border-t border-zinc-300/50">
+        <span class="mt-5 flex justify-center font-bold text-lg">Histórico para os boletos:</span>
+        <div [innerHTML]="texto" class="text-center mt-5"></div>
       </div>
-      <div class="flex flex-col gap-y-1">
-        <label for="diasRestante">Selecione a quantidade de <strong>dias</strong>:</label>
-        <select id="diasRestante" [(ngModel)]="input_Dias_Restante" name="input_Dias_Restante">
-          <option value="">Selecione o dia</option>
-          <option value="0">0 Dias</option>
-          <option value="1">1 Dias</option>
-          <option value="2">2 Dias</option>
-          <option value="3">3 Dias</option>
-          <option value="4">4 Dias</option>
-          <option value="5">5 Dias</option>
-          <option value="6">6 Dias</option>
-          <option value="7">7 Dias</option>
-          <option value="8">8 Dias</option>
-          <option value="9">9 Dias</option>
-          <option value="10">10 Dias</option>
-          <option value="11">11 Dias</option>
-          <option value="12">12 Dias</option>
-          <option value="13">13 Dias</option>
-          <option value="14">14 Dias</option>
-          <option value="15">15 Dias</option>
-          <option value="16">16 Dias</option>
-          <option value="17">17 Dias</option>
-          <option value="18">18 Dias</option>
-          <option value="19">19 Dias</option>
-          <option value="20">20 Dias</option>
-          <option value="21">21 Dias</option>
-          <option value="22">22 Dias</option>
-          <option value="23">23 Dias</option>
-          <option value="24">24 Dias</option>
-          <option value="25">25 Dias</option>
-          <option value="26">26 Dias</option>
-          <option value="27">27 Dias</option>
-          <option value="28">28 Dias</option>
-          <option value="29">29 Dias</option>
-          <option value="30">30 Dias</option>
-          <option value="31">31 Dias</option>
-        </select>
-      </div>
-    </div>
-
-    <button class="w-full py-2 mt-5 font-semibold flex justify-center items-center bg-slate-600 rounded-lg" (click)="calcular()">Calcular</button>
-  </form>
-
-  <section class="w-full sm:w-[600px] h-[520px] lg:w-[700px] lg:h-[400px] lg:flex lg:flex-col border border-solid border-zinc-300/50 rounded-xl">
-    <div class="flex flex-col">
-      <article class="w-full lg:h-[200px] grid grid-rows-2 place-items-center items-start lg:grid lg:grid-cols-2 lg:place-items-center lg:items-start">
-        <section class="flex flex-col mt-5 h-[150px] lg:h-auto lg:mt-10">
-          <span class="font-bold text-base">Fórmula do calculo de mês:</span>
-          <span class="mb-2">M = (VTB ÷ MF) × MR</span>
-          <div [innerHTML]="resultado_Calculo_Mes" class="space-y-1"></div>
-        </section>
-        <section class="flex flex-col mt-5 h-[150px] lg:h-auto lg:mt-10">
-          <span class="font-bold text-base">Fórmula do calculo de dias:</span>
-          <span class="mb-2">M = (DR ÷ 30) × (VTB ÷ MF)</span>
-          <div [innerHTML]="resultado_Calculo_Dias" class="space-y-1"></div>
-        </section>
-      </article>
-      <section [innerHTML]="resultado_Valor_Total_Multa" class="w-full h-[50px] flex flex-col justify-center items-center"></section>
-    </div>
-
-    <div class="h-[150px] border-t border-zinc-300/50">
-      <span class="mt-5 flex justify-center font-bold text-lg">Histórico para os boletos:</span>
-      <div [innerHTML]="texto" class="text-center mt-5"></div>
-    </div>
-  </section>
+    </section>
+  </div>
   <div class="absolute bottom-2 right-4 lg:right-2 lg:bottom-1">
-    <feedback/>
+    <feedback />
+  </div>
+  <div class="w-full absolute">
+    <footer></footer>
   </div>
 </main>
