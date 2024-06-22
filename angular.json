@@ -100,10 +100,10 @@
             "scripts": []
           }
         }
+      },
+      "cli": {
+        "analytics": true
       }
     }
-  },
-  "cli": {
-    "analytics": false
   }
 }
